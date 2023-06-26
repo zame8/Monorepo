@@ -47,6 +47,7 @@ def scrape_yahoo_markets():
         plt.bar(symbols, positive_changes, color='g', label='Positive Changes')
         plt.bar(symbols, negative_changes, color='r', label='Negative Changes')
         plt.bar(symbols, changes)
+
         plt.xlabel('Symbol')
         plt.ylabel('Change')
         plt.title('Yahoo Finance Most Active Stocks')
