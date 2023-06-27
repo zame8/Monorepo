@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import csv
 from functools import partial
+import subprocess
 
 def scrape_data():
     try:
