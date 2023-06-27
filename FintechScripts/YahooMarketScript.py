@@ -31,29 +31,9 @@ def scrape_most_active_Stocks():
 
             writer.writerow([symbol, name, price, change, percent_change])  # Write data row
 
-            print(f"Symbol: {symbol}")
-            print(f"Name: {name}")
-            print(f"Price: {price}")
-            print(f"Change: {change}")
-            print(f"Percent Change: {percent_change}")
-            print()
-
             symbols.append(symbol)
             changes.append(change)
-        
-        positive_changes = [c if c > 0 else 0 for c in changes]
-        negative_changes = [c if c < 0 else 0 for c in changes]
 
-        plt.bar(symbols, positive_changes, color='g', label='Positive Changes')
-        plt.bar(symbols, negative_changes, color='r', label='Negative Changes')
-        plt.bar(symbols, changes)
-
-        plt.xlabel('Symbol')
-        plt.ylabel('Change')
-        plt.title('Yahoo Finance Most Active Stocks')
-        plt.xticks(rotation=90)  # Rotate x-axis labels for better readability
-        plt.tight_layout()  # Adjust layout to prevent labels from overlapping
-        plt.show()
 
 
 def scrape_Highest_Interest_Rate():

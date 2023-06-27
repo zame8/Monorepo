@@ -6,7 +6,7 @@ import subprocess
 
 def scrape_data():
     try:
-        subprocess.call(['python', 'scraping_script.py'])
+        subprocess.call(['python', 'YahooMarketScript.py'])
         messagebox.showinfo("Scraping Complete", "Data scraping is complete. Check the output files for the results.")
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred during scraping: {str(e)}")
