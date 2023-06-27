@@ -55,7 +55,6 @@ def scrape_Highest_Interest_Rate():
 
     rows = table.find_all('tr')[1:]  # Exclude the header row
 
-    options_data = []
 
     # Extract data from each row and store in a list
     for row in rows:
@@ -67,15 +66,14 @@ def scrape_Highest_Interest_Rate():
     for row in rows:
         columns = row.find_all('td')
         symbol = columns[0].text
-        contract_name = columns[1].text
-        strike_price = columns[2].text
-        last_price = columns[3].text
-        bid_price = columns[4].text
-        ask_price = columns[5].text
-        volume = columns[6].text
-        open_interest = columns[7].text
+        contract_name = columns[2].text
+        strike_price = columns[3].text
+        expiry = columns[4].text
+        bid_price = columns[5].text
+        volume = columns[10].text
+        open_interest = columns[11].text
 
-        options_data.append([symbol, contract_name, strike_price, last_price, bid_price, ask_price, volume, open_interest])
+        options_data.append([symbol, contract_name, strike_price, expiry, bid_price, volume, open_interest])
 
     # Write data to a CSV file
     with open('HighestInterestOptionsData.csv', 'w', newline='') as csvfile:
@@ -84,6 +82,42 @@ def scrape_Highest_Interest_Rate():
         writer.writerows(options_data)
 
     print("Scraping complete. Data saved to HighestInterestOptionsData.csv.")
+
+def scrape_stock_data(symbol):
+    url = f"https://finance.yahoo.com/quote/{symbol}"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Scrape specific data from the webpage
+    # Example: Get the current price
+    price_element = soup.find("span", class_="Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)")
+    current_price = price_element.text.strip() if price_element else "N/A"
+
+    # Example: Get the company name
+    name_element = soup.find("h1", class_="D(ib) Fz(18px)")
+    company_name = name_element.text.strip() if name_element else "N/A"
+
+    # Return the scraped data as a dictionary
+    return {
+        "symbol": symbol,
+        "company_name": company_name,
+        "current_price": current_price,
+        # Add other data points here
+    }
+
+# Example usage
+stock_symbol = "AAPL"
+stock_data = scrape_stock_data(stock_symbol)
+
+# Accessing the scraped data
+symbol = stock_data["symbol"]
+company_name = stock_data["company_name"]
+current_price = stock_data["current_price"]
+
+# Printing the scraped data
+print("Stock Symbol:", symbol)
+print("Company Name:", company_name)
+print("Current Price:", current_price)
 
 # Run the scraper
 #scrape_yahoo_markets()

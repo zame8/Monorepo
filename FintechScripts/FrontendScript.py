@@ -3,6 +3,7 @@ from tkinter import messagebox
 import csv
 from functools import partial
 import subprocess
+import matplotlib.pyplot as plt
 
 def scrape_data():
     try:
@@ -16,17 +17,33 @@ def display_results(csv_file):
         reader = csv.reader(csvfile)
         rows = list(reader)
 
-        # Create a new window to display the results
         result_window = tk.Toplevel(window)
         result_window.title("Scraped Data")
 
-        # Create a text widget to display the results
         text_widget = tk.Text(result_window)
         text_widget.pack()
 
-        # Display the first few rows of the results
         for row in rows[:10]:
             text_widget.insert(tk.END, ', '.join(row) + '\n')
+   
+        graph_button = tk.Button(result_window, text="Display Graph", command=partial(display_graph, rows))
+        graph_button.pack(pady=10)
+
+def display_graph(data):
+    data = data[1:]
+    x = [row[0] for row in data]
+    y = [float(row[-1].strip('%')) for row in data]
+
+      
+
+    plt.bar(x, y)
+    plt.xticks(rotation=45, ha='right', fontsize=8)
+    plt.xlabel('X-axis')
+    plt.ylabel('Y-axis')
+    plt.title('Graph for the scrapped data')
+    plt.show()
+    plt.tight_layout()
+
 
 # Create the main window
 window = tk.Tk()
