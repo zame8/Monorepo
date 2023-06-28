@@ -32,10 +32,7 @@ def display_results(csv_file):
 def display_graph(data):
     data = data[1:]
     x = [row[0] for row in data]
-    y = [float(row[-1].strip('%')) for row in data]
-
-      
-
+    y = [float(row[-1].strip('%').replace(',','')) for row in data]
     plt.bar(x, y)
     plt.xticks(rotation=45, ha='right', fontsize=8)
     plt.xlabel('X-axis')
