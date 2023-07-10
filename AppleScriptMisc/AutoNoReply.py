@@ -8,7 +8,7 @@ import email
 reply_subject_template = "Re: {original_subject}"
 reply_content = """Hello {sender_name},
 
-Thank you for your email. Please note that I have received your message and will get back to you as soon as possible.
+Thank you for your email. Please note that I have received your message and will get back to you on the first working day after weekend.
 
 Best regards,
 Emaz"""
